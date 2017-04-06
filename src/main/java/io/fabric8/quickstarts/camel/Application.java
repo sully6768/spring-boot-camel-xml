@@ -16,8 +16,11 @@
  */
 package io.fabric8.quickstarts.camel;
 
+import org.apache.camel.component.servlet.CamelHttpTransportServlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
@@ -32,13 +35,13 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-//    @Bean
-//    ServletRegistrationBean servletRegistrationBean() {
-//        ServletRegistrationBean servlet = new ServletRegistrationBean(
-//            new CamelHttpTransportServlet(), "/people-api/*");
-//        servlet.setName("CamelServlet");
-//        return servlet;
-//    }
+    @Bean
+    ServletRegistrationBean servletRegistrationBean() {
+        ServletRegistrationBean servlet = new ServletRegistrationBean(
+            new CamelHttpTransportServlet(), "/people-service/*");
+        servlet.setName("CamelServlet");
+        return servlet;
+    }
 //
 //    @Component
 //    class RestApi extends RouteBuilder {
