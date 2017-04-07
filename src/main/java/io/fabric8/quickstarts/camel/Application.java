@@ -42,36 +42,5 @@ public class Application {
         servlet.setName("CamelServlet");
         return servlet;
     }
-//
-//    @Component
-//    class RestApi extends RouteBuilder {
-//
-//        @Override
-//        public void configure() {
-//            restConfiguration()
-//                .contextPath("/people-api").apiContextPath("/people-api-doc")
-//                    .apiProperty("api.title", "People REST API")
-//                    .apiProperty("api.version", "1.0")
-//                    .apiProperty("api.description", "A list of people from the Camel Project")
-//                    .apiProperty("cors", "true")
-//                    .apiContextRouteId("doc-api")
-//                    .dataFormatProperty("prettyPrint", "true")
-//                .component("servlet")
-//                .bindingMode(RestBindingMode.json);
-//
-//            rest("/books").description("Books REST service")
-//                .get("/").description("The list of all the books")
-//                    .route().routeId("books-api")
-//                    .to("sql:select distinct description from orders?" +
-//                        "dataSource=dataSource&" +
-//                        "outputClass=org.jboss.example.fuse.fis_camel_springboot_rest.Book")
-//                    .endRest()
-//                .get("order/{id}").description("Details of an order by id")
-//                    .route().routeId("order-api")
-//                    .to("sql:select * from orders where id = :#${header.id}?" +
-//                        "dataSource=dataSource&outputType=SelectOne&" +
-//                        "outputClass=org.jboss.example.fuse.fis_camel_springboot_rest.Order");
-//        }
-//    }
 
 }

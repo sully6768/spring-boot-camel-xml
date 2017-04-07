@@ -16,13 +16,21 @@
     limitations under the License.
 -->
 
+<!-- <beans
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:camel="http://camel.apache.org/schema/spring"
+    xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-2.18.1.xsd">
+ -->
 <beans
     xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:camel="http://camel.apache.org/schema/spring"
     xsi:schemaLocation="
-         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-         http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
   <!-- a bean for user services -->
     <bean
@@ -48,14 +56,14 @@
             contextPath="/people-service/*"
             port="8080"
             apiContextPath="/api-docs"
-            apiContextListing="true"
+            apiContextListing="false"
             enableCORS="true">
 
             <!-- we want json output in pretty mode -->
             <dataFormatProperty
                 key="prettyPrint"
                 value="true" />
-
+            
             <!-- setup swagger api descriptions -->
             <apiProperty
                 key="base.path"
@@ -79,9 +87,10 @@
         <rest
             path="/user"
             consumes="application/json"
-            produces="application/json">
+            produces="application/json"
+            apiDocs="true">
             <description>User rest service</description>
-
+            
             <!-- this is a rest GET to view an user by the given id -->
             <get
                 uri="/{id}"
