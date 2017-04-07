@@ -31,8 +31,16 @@
     {
       "name": "GIT_REF",
       "displayName": "Git Reference",
-      "value": "55",
+      "required": false,
+      "value": "",
       "description": "Set this to a branch name, tag or other ref of your repository if you are not using the default branch."
+    },
+    {
+      "name": "GIT_CONTEXT",
+      "displayName": "Git Context",
+      "required": false,
+      "value": "",
+      "description": "The subdirectory a project lives under."
     },
     {
       "name": "BUILDER_VERSION",
@@ -152,7 +160,8 @@
           "git": {
             "uri": "${GIT_REPO}",
             "ref": "${GIT_REF}"
-          }
+          },
+          "contextDir": "${GIT_REPO}"
         },
         "strategy": {
           "type": "Source",
