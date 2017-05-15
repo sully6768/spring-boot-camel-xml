@@ -15,15 +15,6 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-
-<!-- <beans
-    xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:camel="http://camel.apache.org/schema/spring"
-    xsi:schemaLocation="
-          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-          http://camel.apache.org/schema/spring https://camel.apache.org/schema/spring/camel-spring-2.18.1.xsd">
- -->
 <beans
     xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -36,6 +27,24 @@
     <bean
         id="userService"
         class="io.fabric8.quickstarts.camel.UserService" />
+    <!-- Definition for CamelHttpTransportServlet bean -->
+    <bean
+        id="camelHttpTransportServlet"
+        class="org.apache.camel.component.servlet.CamelHttpTransportServlet" />
+    <!-- Definition for ServletRegistrationBean bean -->
+    <bean
+        id="servletRegistrationBean"
+        class="org.springframework.boot.web.servlet.ServletRegistrationBean">
+        <constructor-arg
+            index="0"
+            ref="camelHttpTransportServlet" />
+        <constructor-arg
+            index="1"
+            value="/people-service/*" />
+        <property
+            name="name"
+            value="CamelServlet" />
+    </bean>
 
     <camelContext
         id="myCamel"
@@ -105,15 +114,7 @@
                 <responseMessage
                     code="404"
                     message="User not found" />
-                <route>
-                    <to uri="bean:userService?method=getUser(${header.id})" />
-                    <filter>
-                        <simple>${body} == null</simple>
-                        <setHeader headerName="Exchange.HTTP_RESPONSE_CODE">
-                            <constant>404</constant>
-                        </setHeader>
-                    </filter>
-                </route>
+                <to uri="direct:userId" />
             </get>
 
             <!-- this is a rest PUT to create/update an user -->
@@ -154,6 +155,16 @@
 
         </rest>
 
+        <route>
+            <from uri="direct:userId" />
+            <to uri="bean:userService?method=getUser(${header.id})" />
+            <filter>
+                <simple>${body} == null</simple>
+                <setHeader headerName="Exchange.HTTP_RESPONSE_CODE">
+                    <constant>404</constant>
+                </setHeader>
+            </filter>
+        </route>
     </camelContext>
 
 </beans>

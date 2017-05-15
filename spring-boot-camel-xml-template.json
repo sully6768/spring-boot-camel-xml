@@ -8,17 +8,17 @@
       "iconClass": "icon-jboss",
       "version": "2.0"
     },
-    "name": "summit2017-fuse-springboot"
+    "name": "spring-boot-camel-rest-swagger-xml"
   },
   "labels": {
-    "template": "summit2017-fuse-springboot"
+    "template": "spring-boot-camel-rest-swagger-xml"
   },
   "parameters": [
     {
       "name": "APP_NAME",
       "displayName": "Application Name",
       "required": true,
-      "value": "summit2017-fuse-springboot",
+      "value": "spring-boot-camel-rest-swagger-xml",
       "description": "The name assigned to the application."
     },
     {
@@ -161,7 +161,7 @@
             "uri": "${GIT_REPO}",
             "ref": "${GIT_REF}"
           },
-          "contextDir": "${GIT_REPO}"
+          "contextDir": "${GIT_CONTEXT}"
         },
         "strategy": {
           "type": "Source",
